@@ -8,16 +8,13 @@ function *responseTime(next){
     yield next;
     var ms = new Date - start;
     this.set('X-Response-Time', ms + 'ms');
-    //console.log('ms:', ms);
 }
 
 function *logger(next){
     var start = new Date;
     yield next;
     var ms = new Date - start;
-    if('test' != process.env.NODE_ENV){
-        console.log('%s %s - %s', this.method, this.url, ms);
-    }
+    console.log('%s %s - %s', this.method, this.url, ms);
 }
 
 function *respond(next){
@@ -40,4 +37,4 @@ var all = compose([
 
 app.use(all);
 
-if(!module.parent) app.listen(3000);
+app.listen(3000);
