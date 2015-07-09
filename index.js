@@ -5,6 +5,9 @@ var app = koa();
 
 module.exports = all;  // export module讓其他程式可以使用
 
+// generator的next method 會回傳一個物件裡面有兩個屬性{value: xxx, done: true/false}
+// value = 下一個元素 done = iterator是否跑完
+
 function responseTime(prepend, append) {
     return function *(next) {
         var start = new Date;
@@ -19,7 +22,7 @@ function logger(){
         var start = new Date;
         yield next;
         var ms = new Date - start;
-        console.log('%s %s - %s', this.method, this.url, ms);
+        console.log('%s - %s', this.method, ms);
     }
 }
 
